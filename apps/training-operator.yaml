@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: training-operator
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/your-github-username/my-mlops-platform.git'
+    path: manifests/training
+    targetRevision: main
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: kubeflow
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
